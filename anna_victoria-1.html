@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>annà Victória Beatriz — Universe</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050505;
+  --deep-red: #8b0000;
+  --wine: #4a0010;
+  --neon-red: #ff0033;
+  --charcoal: #1a1a1a;
+  --gold: #c9a84c;
+  --gold-light: #f0d080;
+  --text: #e8e0d5;
+  --muted: #7a6a6a;
+  --white: #f5f0eb;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--neon-red);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.1s;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,0,51,0.5);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transition: all 0.15s ease;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--deep-red); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(5,5,5,0.95), transparent);
+  backdrop-filter: blur(2px);
+}
+.nav-logo {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0; right: 100%;
+  height: 1px;
+  background: var(--neon-red);
+  transition: right 0.3s ease;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { right: 0; }
+
+/* ─── SECTION BASE ─── */
+section {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── HERO ─── */
+#hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--black);
+  position: relative;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(139,0,0,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 30% 40% at 70% 30%, rgba(255,0,51,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 20% 80%, rgba(74,0,16,0.2) 0%, transparent 60%);
+}
+
+/* Smoke particles */
+.smoke {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.smoke-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: smokeFloat 12s ease-in-out infinite;
+  opacity: 0;
+}
+.smoke-orb:nth-child(1) { width:400px; height:400px; background:rgba(139,0,0,0.12); top:10%; left:5%; animation-delay:0s; }
+.smoke-orb:nth-child(2) { width:300px; height:300px; background:rgba(255,0,51,0.06); top:50%; right:10%; animation-delay:-4s; }
+.smoke-orb:nth-child(3) { width:500px; height:300px; background:rgba(74,0,16,0.15); bottom:5%; left:30%; animation-delay:-8s; }
+.smoke-orb:nth-child(4) { width:200px; height:200px; background:rgba(201,168,76,0.05); top:20%; right:30%; animation-delay:-2s; }
+
+@keyframes smokeFloat {
+  0%   { opacity: 0; transform: translateY(30px) scale(0.9); }
+  30%  { opacity: 1; }
+  70%  { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.1); }
+}
+
+/* Scan lines overlay */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  color: var(--neon-red);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 1s 0.5s forwards;
+}
+
+.hero-name {
+  font-size: clamp(48px, 8vw, 110px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -2px;
+  color: var(--white);
+  position: relative;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s forwards;
+}
+
+.hero-name .accent { color: var(--neon-red); }
+.hero-name .italic { font-style: italic; font-weight: 300; color: var(--muted); }
+
+/* Glitch effect */
+.glitch {
+  position: relative;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+}
+.glitch::before {
+  color: var(--neon-red);
+  animation: glitch1 4s infinite;
+  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+  opacity: 0.5;
+}
+.glitch::after {
+  color: var(--gold);
+  animation: glitch2 4s infinite;
+  clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+  opacity: 0.3;
+}
+@keyframes glitch1 {
+  0%,90%,100% { transform: translateX(0); }
+  92% { transform: translateX(-4px); }
+  94% { transform: translateX(4px); }
+  96% { transform: translateX(-2px); }
+}
+@keyframes glitch2 {
+  0%,85%,100% { transform: translateX(0); }
+  87% { transform: translateX(3px); }
+  89% { transform: translateX(-3px); }
+}
+
+.hero-subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 8px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 24px;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards;
+}
+
+.hero-subtitle em {
+  color: var(--gold);
+  font-style: italic;
+  letter-spacing: 4px;
+}
+
+.hero-enter {
+  margin-top: 56px;
+  opacity: 0;
+  animation: fadeUp 1s 1.6s forwards;
+}
+
+.btn-enter {
+  display: inline-block;
+  padding: 14px 48px;
+  border: 1px solid var(--neon-red);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s;
+}
+.btn-enter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--neon-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.btn-enter:hover::before { transform: scaleX(1); }
+.btn-enter:hover { color: var(--black); }
+.btn-enter span { position: relative; z-index: 1; }
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s 2.5s forwards;
+}
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--neon-red));
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.2); }
+}
+.scroll-text {
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* ─── SECTION HEADINGS ─── */
+.section-header {
+  text-align: center;
+  padding: 80px 40px 60px;
+}
+.section-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: var(--neon-red);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+.section-title {
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--white);
+  line-height: 1;
+}
+.section-title .dim { color: var(--muted); font-weight: 200; font-style: italic; }
+.section-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--neon-red), transparent);
+  margin: 20px auto 0;
+}
+
+/* ─── CHARACTERS ─── */
+#characters {
+  background: var(--charcoal);
+  padding-bottom: 100px;
+}
+#characters::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--deep-red), transparent);
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2px;
+  padding: 0 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.char-card {
+  background: var(--black);
+  border: 1px solid rgba(139,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+.char-card:hover {
+  border-color: var(--neon-red);
+  transform: translateY(-4px);
+}
+.char-card.locked { opacity: 0.7; }
+
+.char-img-wrap {
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+}
+.char-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(60%) contrast(1.1);
+  transition: filter 0.4s, transform 0.4s;
+}
+.char-card:hover .char-img-wrap img {
+  filter: grayscale(20%) contrast(1.2);
+  transform: scale(1.05);
+}
+
+/* Color overlay per card */
+.char-card:nth-child(1) .char-img-wrap::after { background: rgba(139,0,0,0.3); }
+.char-card:nth-child(2) .char-img-wrap::after { background: rgba(74,0,16,0.4); }
+.char-card:nth-child(3) .char-img-wrap::after { background: rgba(20,10,5,0.35); }
+.char-card:nth-child(4) .char-img-wrap::after { background: rgba(80,40,0,0.3); }
+.char-card:nth-child(5) .char-img-wrap::after { background: rgba(0,0,30,0.3); }
+.char-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(139,0,0,0.25);
+  transition: opacity 0.3s;
+}
+.char-card:hover .char-img-wrap::after { opacity: 0.5; }
+
+.char-locked-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5,5,5,0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+.lock-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+.lock-text {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--neon-red);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.char-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 4px 10px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 3;
+}
+.badge-elite { background: var(--gold); color: var(--black); }
+.badge-risk { background: var(--neon-red); color: var(--black); }
+.badge-unknown { background: transparent; border: 1px solid var(--muted); color: var(--muted); }
+.badge-restricted { background: rgba(139,0,0,0.6); color: var(--white); border: 1px solid var(--neon-red); }
+
+.char-body {
+  padding: 24px;
+}
+.char-codename {
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--neon-red);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.char-name {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+.char-alias {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+.char-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.trait {
+  padding: 3px 10px;
+  border: 1px solid rgba(139,0,0,0.4);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.char-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(139,0,0,0.2);
+}
+.stat-item { }
+.stat-label {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.stat-bar {
+  height: 2px;
+  background: rgba(139,0,0,0.2);
+  position: relative;
+}
+.stat-fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  background: linear-gradient(to right, var(--deep-red), var(--neon-red));
+  transition: width 1s ease;
+}
+.char-status {
+  margin-top: 16px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.status-high { color: var(--neon-red); }
+.status-elite { color: var(--gold); }
+.status-unknown { color: var(--muted); }
+
+/* ─── STORYLINE ─── */
+#story {
+  background: var(--black);
+  padding-bottom: 120px;
+}
+.story-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.story-chapter {
+  margin-bottom: 80px;
+  position: relative;
+  padding-left: 32px;
+}
+.story-chapter::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--neon-red), transparent);
+}
+.chapter-num {
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--neon-red);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.chapter-title {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+.chapter-text {
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(232,224,213,0.7);
+  font-weight: 300;
+}
+.hidden-reveal {
+  color: transparent;
+  background: rgba(139,0,0,0.3);
+  cursor: pointer;
+  transition: all 0.4s;
+  padding: 2px 4px;
+  border-bottom: 1px dashed var(--deep-red);
+  position: relative;
+}
+.hidden-reveal:hover,
+.hidden-reveal.revealed {
+  color: var(--neon-red);
+  background: transparent;
+}
+.chapter-quote {
+  margin: 32px 0;
+  padding: 20px 28px;
+  border-left: 2px solid var(--neon-red);
+  background: rgba(139,0,0,0.06);
+}
+.chapter-quote p {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.6;
+}
+.chapter-quote cite {
+  display: block;
+  margin-top: 12px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+/* ─── RULES ─── */
+#rules {
+  background: var(--charcoal);
+  padding-bottom: 100px;
+}
+.rules-terminal {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 40px;
+  font-family: 'Montserrat', monospace;
+}
+.terminal-header {
+  background: rgba(139,0,0,0.15);
+  border: 1px solid rgba(139,0,0,0.3);
+  border-bottom: none;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.terminal-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.terminal-dot:nth-child(1) { background: var(--neon-red); }
+.terminal-dot:nth-child(2) { background: #ffcc00; }
+.terminal-dot:nth-child(3) { background: #00cc44; }
+.terminal-title {
+  margin-left: auto;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.terminal-body {
+  background: rgba(5,5,5,0.9);
+  border: 1px solid rgba(139,0,0,0.3);
+  padding: 40px;
+}
+.terminal-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(139,0,0,0.1);
+  animation: terminalType 0.5s ease forwards;
+  opacity: 0;
+}
+.terminal-line:last-child { border-bottom: none; }
+.t-prompt { color: var(--neon-red); font-weight: 700; font-size: 13px; flex-shrink: 0; }
+.t-cmd { color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+.t-body { color: rgba(232,224,213,0.8); font-size: 13px; line-height: 1.7; font-weight: 300; }
+.t-warning {
+  background: rgba(255,0,51,0.1);
+  border: 1px solid rgba(255,0,51,0.4);
+  color: var(--neon-red);
+  padding: 8px 14px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  margin-top: 8px;
+}
+@keyframes terminalType {
+  to { opacity: 1; }
+}
+.rule-number {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  margin-right: 8px;
+}
+
+/* ─── JOIN ─── */
+#join {
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 40px;
+}
+.join-wrap {
+  max-width: 580px;
+  width: 100%;
+  text-align: center;
+}
+.join-portal {
+  position: relative;
+  margin: 0 auto 48px;
+  width: 120px;
+  height: 120px;
+}
+.portal-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid;
+  animation: portalSpin 6s linear infinite;
+}
+.portal-ring:nth-child(1) { border-color: rgba(255,0,51,0.5); }
+.portal-ring:nth-child(2) { inset: 10px; border-color: rgba(139,0,0,0.4); animation-duration: 4s; animation-direction: reverse; }
+.portal-ring:nth-child(3) { inset: 20px; border-color: rgba(201,168,76,0.3); animation-duration: 8s; }
+.portal-core {
+  position: absolute;
+  inset: 35px;
+  background: radial-gradient(circle, rgba(255,0,51,0.3), transparent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  animation: portalPulse 2s ease-in-out infinite;
+}
+@keyframes portalSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes portalPulse {
+  0%,100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.join-header {
+  margin-bottom: 40px;
+}
+.join-title {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+.join-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.join-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+.form-group {
+  position: relative;
+}
+.form-label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.form-input, .form-textarea {
+  width: 100%;
+  background: rgba(26,26,26,0.8);
+  border: 1px solid rgba(139,0,0,0.3);
+  color: var(--text);
+  padding: 14px 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.3s;
+  resize: none;
+}
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--neon-red);
+}
+.form-input::placeholder, .form-textarea::placeholder {
+  color: rgba(122,106,106,0.5);
+}
+.form-textarea { height: 100px; }
+
+.btn-submit {
+  background: transparent;
+  border: 1px solid var(--neon-red);
+  color: var(--white);
+  padding: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s;
+  margin-top: 8px;
+}
+.btn-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--neon-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.btn-submit:hover::before { transform: scaleX(1); }
+.btn-submit:hover { color: var(--black); }
+.btn-submit span { position: relative; z-index: 1; }
+
+.join-success {
+  display: none;
+  padding: 32px;
+  border: 1px solid var(--neon-red);
+  background: rgba(255,0,51,0.05);
+  text-align: center;
+}
+.join-success.active { display: block; }
+.success-icon { font-size: 32px; margin-bottom: 16px; }
+.success-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.success-text { font-size: 12px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+
+/* ─── GALLERY ─── */
+#gallery {
+  background: var(--charcoal);
+  padding-bottom: 100px;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  gap: 3px;
+  padding: 0 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.gallery-item:nth-child(5) { grid-column: span 2; }
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  filter: grayscale(50%) contrast(1.1);
+  transition: filter 0.5s, transform 0.5s;
+  display: block;
+}
+.gallery-item:hover .gallery-img {
+  filter: grayscale(0%) contrast(1.2);
+  transform: scale(1.05);
+}
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5,5,5,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px 16px;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black);
+  padding: 60px 40px;
+  text-align: center;
+  border-top: 1px solid rgba(139,0,0,0.2);
+}
+.footer-logo {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+.footer-handle {
+  font-size: 12px;
+  color: var(--neon-red);
+  letter-spacing: 3px;
+  margin-bottom: 32px;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 40px;
+  list-style: none;
+}
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--neon-red); }
+.footer-copy {
+  font-size: 10px;
+  color: rgba(122,106,106,0.4);
+  letter-spacing: 2px;
+}
+.footer-red-line {
+  width: 40px;
+  height: 1px;
+  background: var(--neon-red);
+  margin: 24px auto;
+}
+
+/* ─── AUDIO TOGGLE ─── */
+.audio-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,0,51,0.4);
+  background: rgba(5,5,5,0.8);
+  color: var(--neon-red);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 500;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.3s, background 0.3s;
+}
+.audio-btn:hover {
+  border-color: var(--neon-red);
+  background: rgba(255,0,51,0.1);
+}
+.audio-hint {
+  position: fixed;
+  bottom: 84px;
+  right: 32px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  z-index: 500;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  .characters-grid { grid-template-columns: 1fr; padding: 0 20px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px; }
+  .gallery-item:nth-child(1) { grid-column: span 2; }
+  .gallery-item:nth-child(5) { grid-column: span 2; }
+  .story-wrap, .rules-terminal, .join-wrap { padding: 0 20px; }
+  .section-header { padding: 60px 20px 40px; }
+  .terminal-body { padding: 24px 20px; }
+}
+
+/* ─── NOISE TEXTURE ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.4;
+}
+
+/* ─── VIDEO SECTION ─── */
+#video-bg {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#video-bg video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(70%) brightness(0.4);
+}
+.video-overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.video-quote {
+  font-size: clamp(20px, 4vw, 48px);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -1px;
+  max-width: 800px;
+  padding: 0 40px;
+  line-height: 1.2;
+}
+.video-quote span { color: var(--neon-red); }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Audio toggle -->
+<button class="audio-btn" id="audioBtn" title="Toggle ambient sound">🔇</button>
+<div class="audio-hint" id="audioHint">AMBIENT</div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#hero" class="nav-logo">AVB</a>
+  <ul class="nav-links">
+    <li><a href="#characters">Files</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#rules">Protocol</a></li>
+    <li><a href="#join">Access</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="smoke">
+    <div class="smoke-orb"></div>
+    <div class="smoke-orb"></div>
+    <div class="smoke-orb"></div>
+    <div class="smoke-orb"></div>
+  </div>
+  <div class="scanlines"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. São Paulo · Brazil</p>
+    <h1 class="hero-name">
+      <div class="glitch" data-text="annà">annà</div>
+      <br>
+      <span class="italic">Victória</span>
+      <span class="accent"> Beatriz</span>
+    </h1>
+    <p class="hero-subtitle">A story built in <em>shadows</em></p>
+    <div class="hero-enter">
+      <a href="#characters" class="btn-enter"><span>Enter Universe</span></a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ─── VIDEO DIVIDER ─── -->
+<div id="video-bg">
+  <video autoplay muted loop playsinline>
+    <source src="https://cdn.coverr.co/videos/coverr-neon-light-reflections-on-wet-street-2255/1080p.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay">
+    <p class="video-quote">She doesn't follow the <span>dark</span>.<br>She creates it.</p>
+  </div>
+</div>
+
+<!-- ─── CHARACTERS ─── -->
+<section id="characters">
+  <div class="section-header reveal">
+    <span class="section-tag">Classified Files</span>
+    <h2 class="section-title">Character <span class="dim">Profiles</span></h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="characters-grid">
+
+    <!-- Card 1 -->
+    <div class="char-card reveal">
+      <div class="char-img-wrap">
+        <img src="https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=600&q=80" alt="Vitória">
+      </div>
+      <span class="char-badge badge-elite">Elite</span>
+      <div class="char-body">
+        <div class="char-codename">File 001 · Active</div>
+        <div class="char-name">annà Victória</div>
+        <div class="char-alias">"The Architect"</div>
+        <div class="char-traits">
+          <span class="trait">Dominance</span>
+          <span class="trait">Mystery</span>
+          <span class="trait">Calculated</span>
+        </div>
+        <div class="char-stats">
+          <div class="stat-item">
+            <div class="stat-label">Power</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:92%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Influence</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:88%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Secrecy</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:97%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Danger</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:85%"></div></div>
+          </div>
+        </div>
+        <div class="char-status status-elite">⬡ Elite · Unrestricted</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="char-card reveal">
+      <div class="char-img-wrap">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80" alt="Beatriz">
+      </div>
+      <span class="char-badge badge-risk">High Risk</span>
+      <div class="char-body">
+        <div class="char-codename">File 002 · Active</div>
+        <div class="char-name">Beatriz Noir</div>
+        <div class="char-alias">"The Phantom"</div>
+        <div class="char-traits">
+          <span class="trait">Volatile</span>
+          <span class="trait">Emotion</span>
+          <span class="trait">Intensity</span>
+        </div>
+        <div class="char-stats">
+          <div class="stat-item">
+            <div class="stat-label">Power</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:78%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Influence</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:95%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Secrecy</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:70%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Danger</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:99%"></div></div>
+          </div>
+        </div>
+        <div class="char-status status-high">⚠ High Risk · Monitor</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="char-card reveal">
+      <div class="char-img-wrap">
+        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80" alt="Shadow">
+      </div>
+      <span class="char-badge badge-unknown">Unknown</span>
+      <div class="char-body">
+        <div class="char-codename">File 003 · Inactive</div>
+        <div class="char-name">Sombra</div>
+        <div class="char-alias">"The Witness"</div>
+        <div class="char-traits">
+          <span class="trait">Silent</span>
+          <span class="trait">Observer</span>
+          <span class="trait">Patient</span>
+        </div>
+        <div class="char-stats">
+          <div class="stat-item">
+            <div class="stat-label">Power</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:65%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Influence</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:55%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Secrecy</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:100%"></div></div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Danger</div>
+            <div class="stat-bar"><div class="stat-fill" style="width:60%"></div></div>
+          </div>
+        </div>
+        <div class="char-status status-unknown">◈ Status Unknown</div>
+      </div>
+    </div>
+
+    <!-- Card 4 — LOCKED -->
+    <div class="char-card locked reveal">
+      <div class="char-img-wrap">
+        <img src="https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=600&q=80" alt="Locked">
+        <div class="char-locked-overlay">
+          <div class="lock-icon">🔒</div>
+          <div class="lock-text">Restricted Access</div>
+        </div>
+      </div>
+      <span class="char-badge badge-restricted">Classified</span>
+      <div class="char-body">
+        <div class="char-codename">File 004 · Classified</div>
+        <div class="char-name">— — — —</div>
+        <div class="char-alias">Alias withheld</div>
+        <div class="char-traits">
+          <span class="trait">████████</span>
+          <span class="trait">███████</span>
+        </div>
+        <div class="char-status status-high">⛔ Access Denied</div>
+      </div>
+    </div>
+
+    <!-- Card 5 — LOCKED -->
+    <div class="char-card locked reveal">
+      <div class="char-img-wrap">
+        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=600&q=80" alt="Locked 2">
+        <div class="char-locked-overlay">
+          <div class="lock-icon">🔒</div>
+          <div class="lock-text">Level 5 Clearance Required</div>
+        </div>
+      </div>
+      <span class="char-badge badge-restricted">Top Secret</span>
+      <div class="char-body">
+        <div class="char-codename">File 005 · Eyes Only</div>
+        <div class="char-name">— — — —</div>
+        <div class="char-alias">Request clearance below</div>
+        <div class="char-traits">
+          <span class="trait">████</span>
+          <span class="trait">██████</span>
+          <span class="trait">████████</span>
+        </div>
+        <div class="char-status status-high">⛔ Sealed by Protocol</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── STORYLINE ─── -->
+<section id="story">
+  <div class="section-header reveal">
+    <span class="section-tag">Dark Narrative</span>
+    <h2 class="section-title">The <span class="dim">Storyline</span></h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="story-wrap">
+
+    <div class="story-chapter reveal">
+      <div class="chapter-num">Chapter I · Origin</div>
+      <h3 class="chapter-title">Born in the Dark</h3>
+      <p class="chapter-text">
+        She didn't choose the night. The night chose her.
+        In the humid streets of São Paulo, between neon and shadow, a girl learned
+        that silence was louder than any scream.
+        <span class="hidden-reveal" onclick="this.classList.toggle('revealed')"> She learned early that power doesn't announce itself.</span>
+        It simply arrives.
+      </p>
+      <div class="chapter-quote">
+        <p>"I didn't become this. I was always this — you just weren't watching closely enough."</p>
+        <cite>— annà Victória Beatriz</cite>
+      </div>
+    </div>
+
+    <div class="story-chapter reveal">
+      <div class="chapter-num">Chapter II · The Rupture</div>
+      <h3 class="chapter-title">When Trust Became a Weapon</h3>
+      <p class="chapter-text">
+        There was a moment — <span class="hidden-reveal" onclick="this.classList.toggle('revealed')">a betrayal so precise it felt choreographed</span> — that split her timeline into before and after.
+        She stopped bleeding and started calculating.
+        The world thinks coldness is absence of feeling.
+        It isn't. It's feeling distilled into something unbreakable.
+      </p>
+      <p class="chapter-text" style="margin-top:20px;">
+        Most people collapse at the rupture point. She built a throne there.
+      </p>
+    </div>
+
+    <div class="story-chapter reveal">
+      <div class="chapter-num">Chapter III · The Ascent</div>
+      <h3 class="chapter-title">How Shadows Crown Their Queens</h3>
+      <p class="chapter-text">
+        The universe she built has no map. No visitor stays long enough to chart it.
+        <span class="hidden-reveal" onclick="this.classList.toggle('revealed')">Those who enter on her terms rarely want to leave.</span>
+        Those who enter uninvited never find the way back.
+      </p>
+      <div class="chapter-quote">
+        <p>"Every empire starts in the dark. Mine simply never left."</p>
+        <cite>— File 001 · Final Entry</cite>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── RULES ─── -->
+<section id="rules">
+  <div class="section-header reveal">
+    <span class="section-tag">System Protocol</span>
+    <h2 class="section-title">The <span class="dim">Rules</span></h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="rules-terminal reveal">
+    <div class="terminal-header">
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <div class="terminal-dot"></div>
+      <span class="terminal-title">protocol_avb.sys · v2.0</span>
+    </div>
+    <div class="terminal-body" id="terminalBody">
+      <div class="terminal-line" style="animation-delay:0.1s">
+        <span class="t-prompt">$</span>
+        <div>
+          <div class="t-cmd"><span class="rule-number">01 ·</span> NO_BETRAYAL</div>
+          <div class="t-body">Loyalty is the only currency accepted here. Compromise it once and access is permanently revoked. No exceptions. No appeals.</div>
+          <span class="t-warning">⚠ Violation = Immediate Termination</span>
+        </div>
+      </div>
+      <div class="terminal-line" style="animation-delay:0.3s">
+        <span class="t-prompt">$</span>
+        <div>
+          <div class="t-cmd"><span class="rule-number">02 ·</span> SECRETS_PROTOCOL</div>
+          <div class="t-body">What happens in this universe stays encrypted. Exposure of any internal information will trigger Protocol Black — complete erasure from all records.</div>
+          <span class="t-warning">⚠ Unauthorized Disclosure = Protocol Black</span>
+        </div>
+      </div>
+      <div class="terminal-line" style="animation-delay:0.5s">
+        <span class="t-prompt">$</span>
+        <div>
+          <div class="t-cmd"><span class="rule-number">03 ·</span> LOYALTY_REQUIRED</div>
+          <div class="t-body">Dual allegiance is not permitted. You are either fully committed to this system or you are outside it. There is no middle ground, no grey area, no negotiation.</div>
+          <span class="t-warning">⚠ Divided Loyalty = Access Suspended</span>
+        </div>
+      </div>
+      <div class="terminal-line" style="animation-delay:0.7s">
+        <span class="t-prompt">$</span>
+        <div>
+          <div class="t-cmd"><span class="rule-number">04 ·</span> ACCESS_RESTRICTIONS</div>
+          <div class="t-body">Certain sections of this universe are Level 5 classified. Do not attempt unauthorized entry. Attempts are logged, traced, and reported to the Administrator.</div>
+          <span class="t-warning">⚠ Unauthorized Access = Identity Flagged</span>
+        </div>
+      </div>
+      <div class="terminal-line" style="animation-delay:0.9s">
+        <span class="t-prompt">$</span>
+        <div>
+          <div class="t-cmd"><span class="rule-number">05 ·</span> RESPECT_HIERARCHY</div>
+          <div class="t-body">The structure here is fixed. You do not challenge the Administrator. You do not negotiate your rank. You earn it — or you don't exist here at all.</div>
+          <span class="t-warning">⚠ Insubordination = Permanent Ban</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── JOIN ─── -->
+<section id="join">
+  <div class="join-wrap">
+    <div class="join-portal">
+      <div class="portal-ring"></div>
+      <div class="portal-ring"></div>
+      <div class="portal-ring"></div>
+      <div class="portal-core">🔐</div>
+    </div>
+    <div class="join-header reveal">
+      <h2 class="join-title">Request Access</h2>
+      <p class="join-subtitle">This universe does not accept uninvited guests.<br>Submit your request. We will decide if you belong here.</p>
+    </div>
+
+    <div class="join-form reveal" id="joinForm">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" class="form-input" placeholder="Your real name..." id="joinName">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Instagram / Contact Handle</label>
+        <input type="text" class="form-input" placeholder="@your_handle" id="joinHandle">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Why do you deserve access?</label>
+        <textarea class="form-textarea" placeholder="State your reason clearly. Vague requests are denied." id="joinReason"></textarea>
+      </div>
+      <button class="btn-submit" onclick="submitJoin()"><span>Submit Request</span></button>
+    </div>
+
+    <div class="join-success" id="joinSuccess">
+      <div class="success-icon">⬡</div>
+      <div class="success-title">Request Received</div>
+      <div class="success-text">Under Review · @anna_vtriz will respond</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALLERY ─── -->
+<section id="gallery">
+  <div class="section-header reveal">
+    <span class="section-tag">Visual Archive</span>
+    <h2 class="section-title">Aesthetic <span class="dim">Gallery</span></h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=800&q=80" alt="">
+      <div class="gallery-overlay"><span class="gallery-label">Cinematic</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80" alt="">
+      <div class="gallery-overlay"><span class="gallery-label">Editorial</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1484399172022-72a90b12e3c1?w=500&q=80" alt="">
+      <div class="gallery-overlay"><span class="gallery-label">Neon Shadows</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1574144611937-0df059b5ef3e?w=500&q=80" alt="">
+      <div class="gallery-overlay"><span class="gallery-label">Dark Portrait</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="">
+      <div class="gallery-overlay"><span class="gallery-label">Abstract</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&q=80" alt="">
+      <div class="gallery-overlay"><span class="gallery-label">Moody</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80" alt="">
+      <div class="gallery-overlay"><span class="gallery-label">Neon</span></div>
+    </div>
+    <div class="gallery-item reveal">
+      <img class="gallery-img" src="https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=500&q=80" alt="">
+      <div class="gallery-overlay"><span class="gallery-label">Fashion</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">annà Victória Beatriz</div>
+  <div class="footer-handle">@anna_vtriz</div>
+  <ul class="footer-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#characters">Files</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#rules">Protocol</a></li>
+    <li><a href="#join">Access</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+  </ul>
+  <div class="footer-red-line"></div>
+  <div class="footer-copy">© 2025 annà Victória Beatriz Universe · All Rights Reserved · Unauthorized access will be prosecuted</div>
+</footer>
+
+<script>
+// ─── CUSTOM CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx - 5 + 'px';
+  cursor.style.top = my - 5 + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx - 16) * 0.12;
+  ry += (my - ry - 16) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .char-card, .gallery-item').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'scale(2)';
+    ring.style.transform = 'scale(1.5)';
+    ring.style.borderColor = 'rgba(255,0,51,0.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'scale(1)';
+    ring.style.transform = 'scale(1)';
+    ring.style.borderColor = 'rgba(255,0,51,0.5)';
+  });
+});
+
+// ─── SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// ─── JOIN FORM
+function submitJoin() {
+  const name = document.getElementById('joinName').value.trim();
+  const handle = document.getElementById('joinHandle').value.trim();
+  const reason = document.getElementById('joinReason').value.trim();
+  if (!name || !handle || !reason) {
+    alert('Complete all fields. Incomplete requests are automatically denied.');
+    return;
+  }
+  document.getElementById('joinForm').style.display = 'none';
+  document.getElementById('joinSuccess').classList.add('active');
+}
+
+// ─── AUDIO TOGGLE (ambient oscillator)
+const audioBtn = document.getElementById('audioBtn');
+const audioHint = document.getElementById('audioHint');
+let audioCtx, isPlaying = false;
+let gainNode, oscNodes = [];
+
+function startAmbient() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  gainNode = audioCtx.createGain();
+  gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+  gainNode.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 2);
+  gainNode.connect(audioCtx.destination);
+
+  // Low drone
+  const freqs = [40, 60, 80, 120];
+  freqs.forEach((f, i) => {
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.frequency.value = f;
+    osc.type = i % 2 === 0 ? 'sine' : 'triangle';
+    g.gain.value = 0.3 - i * 0.05;
+    osc.connect(g);
+    g.connect(gainNode);
+    osc.start();
+    oscNodes.push(osc);
+  });
+}
+
+function stopAmbient() {
+  if (gainNode) {
+    gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
+    setTimeout(() => {
+      oscNodes.forEach(o => o.stop());
+      oscNodes = [];
+      audioCtx.close();
+    }, 1600);
+  }
+}
+
+audioBtn.addEventListener('mouseenter', () => { audioHint.style.opacity = '1'; });
+audioBtn.addEventListener('mouseleave', () => { audioHint.style.opacity = '0'; });
+
+audioBtn.addEventListener('click', () => {
+  if (!isPlaying) {
+    startAmbient();
+    audioBtn.textContent = '🔊';
+    isPlaying = true;
+  } else {
+    stopAmbient();
+    audioBtn.textContent = '🔇';
+    isPlaying = false;
+  }
+});
+
+// ─── EASTER EGG — Konami code reveals a secret
+let keys = [];
+const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+document.addEventListener('keydown', e => {
+  keys.push(e.key);
+  keys = keys.slice(-10);
+  if (keys.join(',') === konami.join(',')) {
+    alert('🔴 Secret unlocked: "The Archive exists. You just need the right key. — @anna_vtriz"');
+  }
+});
+
+// ─── Parallax hero text
+document.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroContent = document.querySelector('.hero-content');
+  if (heroContent) {
+    heroContent.style.transform = `translateY(${scrollY * 0.3}px)`;
+    heroContent.style.opacity = 1 - scrollY / 600;
+  }
+});
+
+// ─── Terminal lines animate on scroll
+const terminalObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const lines = entry.target.querySelectorAll('.terminal-line');
+      lines.forEach((line, i) => {
+        line.style.animationDelay = `${i * 0.15}s`;
+        line.style.animation = `terminalType 0.6s ${i * 0.15}s forwards`;
+      });
+    }
+  });
+}, { threshold: 0.2 });
+
+const termBody = document.getElementById('terminalBody');
+if (termBody) terminalObserver.observe(termBody);
+</script>
+</body>
+</html>
